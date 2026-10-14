@@ -1,0 +1,197 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered user account with authentication and lifecycle status",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "phone": { "type": "string", "description": "User phone number" },
+        "role": { "type": "string", "enum": ["member", "admin"], "description": "User access role" },
+        "emailVerified": { "type": "boolean", "description": "Email verification status" },
+        "accountStatus": { "type": "string", "enum": ["active", "suspended", "pending"], "description": "Account status" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Profile": {
+      "title": "Profile",
+      "description": "Matrimonial profile with personal, marriage, and partner preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "referenceId": { "type": "string", "description": "Unique reference ID e.g. MMC-2026-000001" },
+        "fullName": { "type": "string" },
+        "gender": { "type": "string", "enum": ["Brother (Male)", "Sister (Female)"] },
+        "dateOfBirth": { "type": "string" },
+        "age": { "type": "number" },
+        "nationality": { "type": "string" },
+        "state": { "type": "string" },
+        "country": { "type": "string" },
+        "contactAddress": { "type": "string", "description": "Private contact address" },
+        "occupation": { "type": "string" },
+        "education": { "type": "string" },
+        "officeBusinessAddress": { "type": "string" },
+        "maritalStatus": { "type": "string", "enum": ["Single", "Divorced", "Widowed", "Married"] },
+        "childrenCount": { "type": "number" },
+        "wivesCount": { "type": "number" },
+        "apartmentStatus": { "type": "string", "enum": ["Own house", "Rented apartment", "Family house", "Other"] },
+        "about": { "type": "string" },
+        "partnerPreferences": { "type": "string" },
+        "whatsApp": { "type": "string" },
+        "instagram": { "type": "string" },
+        "profileStatus": { "type": "string", "enum": ["pending", "approved", "rejected", "suspended"] },
+        "matchingAccess": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "referenceId", "fullName", "gender", "age"]
+    },
+    "HealthProfile": {
+      "title": "HealthProfile",
+      "description": "Sensitive health records isolated with strict access controls",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "generalHealthStatus": { "type": "string" },
+        "conditions": { "type": "string" },
+        "bloodGroup": { "type": "string" },
+        "visibility": { "type": "string", "enum": ["PRIVATE", "GENERAL STATUS VISIBLE", "PREFER NOT TO DISCLOSE"] },
+        "consent": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "generalHealthStatus", "visibility"]
+    },
+    "Photo": {
+      "title": "Photo",
+      "description": "Uploaded member photos with review status and protection",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "photoId": { "type": "string" },
+        "storagePath": { "type": "string" },
+        "approvalStatus": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "visibility": { "type": "string" },
+        "downloadPermission": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "photoId"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "One-time N5,000 membership fee payment record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "referenceId": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "paymentReference": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "receiptStoragePath": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "VERIFIED", "REJECTED", "REQUIRES_CLARIFICATION"] },
+        "verifiedBy": { "type": "string" },
+        "verifiedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "referenceId", "amount", "status"]
+    },
+    "PermitCard": {
+      "title": "PermitCard",
+      "description": "Official digital MMC Permit Card with verification QR code",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "referenceId": { "type": "string" },
+        "cardStatus": { "type": "string", "enum": ["active", "suspended", "disabled"] },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "verificationUrl": { "type": "string" }
+      },
+      "required": ["uid", "referenceId", "cardStatus"]
+    },
+    "Consent": {
+      "title": "Consent",
+      "description": "Legal, privacy, health, and photo consents record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "photoConsent": { "type": "boolean" },
+        "profileVisibilityConsent": { "type": "boolean" },
+        "termsAccepted": { "type": "boolean" },
+        "privacyAccepted": { "type": "boolean" },
+        "paymentPolicyAccepted": { "type": "boolean" },
+        "allTenAccepted": { "type": "boolean" },
+        "consentVersion": { "type": "string" },
+        "acceptedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "allTenAccepted"]
+    },
+    "AdminAction": {
+      "title": "AdminAction",
+      "description": "Audit log entry of administrative operations",
+      "type": "object",
+      "properties": {
+        "adminUid": { "type": "string" },
+        "action": { "type": "string" },
+        "targetUid": { "type": "string" },
+        "targetReferenceId": { "type": "string" },
+        "notes": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["adminUid", "action", "timestamp"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Member safeguarding and anti-fraud reports",
+      "type": "object",
+      "properties": {
+        "reporterUid": { "type": "string" },
+        "targetUid": { "type": "string" },
+        "reason": { "type": "string" },
+        "details": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "investigating", "resolved", "dismissed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterUid", "targetUid", "reason"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User base identity document"
+    },
+    "/profiles/{userId}": {
+      "schema": { "$ref": "#/entities/Profile" },
+      "description": "Matrimonial profile document"
+    },
+    "/healthProfiles/{userId}": {
+      "schema": { "$ref": "#/entities/HealthProfile" },
+      "description": "Confidential health records"
+    },
+    "/photos/{userId}/items/{photoId}": {
+      "schema": { "$ref": "#/entities/Photo" },
+      "description": "Member photo record"
+    },
+    "/payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/Payment" },
+      "description": "Membership fee payment record"
+    },
+    "/permitCards/{userId}": {
+      "schema": { "$ref": "#/entities/PermitCard" },
+      "description": "Digital permit card status"
+    },
+    "/consents/{userId}": {
+      "schema": { "$ref": "#/entities/Consent" },
+      "description": "Signed member legal and safety consents"
+    },
+    "/adminActions/{actionId}": {
+      "schema": { "$ref": "#/entities/AdminAction" },
+      "description": "Immutable administrative audit trail"
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/Report" },
+      "description": "Confidential safeguarding reports"
+    }
+  }
+}

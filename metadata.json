@@ -1,0 +1,6 @@
+{
+  "name": "Muslim Marriage Connect",
+  "description": "A professional, secure matrimonial web platform for Muslims to find compatible spouses with verified matching, digital permit cards, and safeguarding.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
